@@ -12,7 +12,7 @@ if (id === null) {
 }
 
 // create the url by addin the id to the end
-const url = "https://t9jt3myad3.execute-api.eu-west-2.amazonaws.com/api/breakingbad/" + id;
+const url = "https://breakingbadapi.com/api/characters/" + id;
 
 const idContainer = document.querySelector(".id");
 const detailContainer = document.querySelector(".details");
@@ -23,10 +23,9 @@ idContainer.innerHTML = id;
 async function fetchCharacter() {
     try {
         const response = await fetch(url);
-        const details = await response.json();
-
-        console.log(details);
-
+        const result = await response.json();
+        console.log(result);
+        const details = result[0];
         // pass the json to a function that will create the html
         createHtml(details);
     } catch (error) {
