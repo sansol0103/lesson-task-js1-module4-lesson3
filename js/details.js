@@ -8,11 +8,11 @@ const id = params.get("id");
 
 // if the id is null (doesn't exist) redirect to the home page
 if (id === null) {
-    location.href = "/";
+	location.href = "/";
 }
 
 // create the url by addin the id to the end
-const url = "https://breakingbadapi.com/api/characters/" + id;
+const url = "https://api.noroff.dev/api/v1/books/" + id;
 
 const idContainer = document.querySelector(".id");
 const detailContainer = document.querySelector(".details");
@@ -21,22 +21,21 @@ const detailContainer = document.querySelector(".details");
 idContainer.innerHTML = id;
 
 async function fetchCharacter() {
-    try {
-        const response = await fetch(url);
-        const result = await response.json();
-        console.log(result);
-        const details = result[0];
-        // pass the json to a function that will create the html
-        createHtml(details);
-    } catch (error) {
-        console.log(error);
-        detailContainer.innerHTML = error;
-    }
+	try {
+		const response = await fetch(url);
+		const result = await response.json();
+		console.log(result);
+		// pass the json to a function that will create the html
+		createHtml(result);
+	} catch (error) {
+		console.log(error);
+		detailContainer.innerHTML = error;
+	}
 }
 
 fetchCharacter();
 
 function createHtml(details) {
-    detailContainer.innerHTML = `<h1>${details.name}</h1>   
-                                 <div>Occupation: <b>${details.occupation[0]}</b></div>`;
+	detailContainer.innerHTML = `<h1>${details.title}</h1>   
+                                 <div>Author: <b>${details.author}</b></div>`;
 }
